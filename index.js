@@ -4,9 +4,15 @@ const app = express(); // Instanciando o express
 // Informando o motor gerador de HTML utilizado
 app.set("view engine", "ejs")
 
+app.use(express.static("public")) // Informando a pasta dos arquivos estaticos
+
 
 app.get("/", (req, res) => {
     res.render("index")
+})
+
+app.get("/perguntar", (req, res) => {
+    res.render("perguntar")
 })
 
 // Iniciando servidor na porta 8080
