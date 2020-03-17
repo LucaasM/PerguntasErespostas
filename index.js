@@ -15,6 +15,11 @@ app.get("/perguntar", (req, res) => {
     res.render("perguntar")
 })
 
+// Criando a rota para acessar dados do front
+app.post("/salvarpergunta", (req, res) => {
+    res.send("Formulario recebido")
+})
+
 // Iniciando servidor na porta 8080
 app.listen(8080, () => {
     console.log("Servidor rodando")

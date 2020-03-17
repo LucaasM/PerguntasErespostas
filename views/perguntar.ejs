@@ -1,48 +1,31 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Guia de Perguntas</title>
-    <!--  Primeiro vêm o bootstrap dps o css costumizado -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-
-</head>
+<%- include ("partials/header.ejs") %>
 
 
-<body>
+    <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Home</a>
-    </nav>
+        <%- include ("partials/navbar.ejs") %>
 
-    <div class="container">
+            <div class="container">
 
-        <div class="card" id="formulario-pergunta">
-            <div class="card-header">
-                <h3>Realizar pergunta</h3>
+                <div class="card" id="formulario-pergunta">
+                    <div class="card-header">
+                        <h3>Realizar pergunta</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="POST" action="/salvarpergunta">
+                            <label>Título</label>
+                            <input type="text" placeholder="Título" class="form-control">
+                            <br><label>Descrição da pergunta</label>
+                            <textarea placeholder="Descreva sua pergunta" class="form-control"></textarea>
+                            <br>
+                            <button class="btn btn-success">Perguntar</button>
+                        </form>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="card-body">
-                <form>
-                    <label>Título</label>
-                    <input type="text" placeholder="Título" class="form-control">
-                    <br><label>Descrição da pergunta</label>
-                    <textarea placeholder="Descreva sua pergunta" class="form-control"></textarea>
-                    <br>
-                    <button class="btn btn-success">Perguntar</button>
-                </form>
-            </div>
+    </body>
 
-        </div>
-    </div>
-
-</body>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-
-</html>
+    <%- include ("partials/footer.ejs") %>
