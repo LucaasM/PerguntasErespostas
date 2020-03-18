@@ -28,7 +28,18 @@ app.use(bodyParser.json()) // Permitindo a leitura de dados do tipo json
 
 // Rotas
 app.get("/", (req, res) => {
-    res.render("index")
+    // Selecionando todos os dados da tabela pergunta e passando para o front-end
+    Pergunta.findAll({
+        raw: true,
+        order: [
+            ['id', 'DESC'] // Configurando para ordenar de forma descrescente considerando o ID
+        ]
+    }).then(perguntas => {
+        res.render("index", {
+            perguntas: perguntas
+        })
+    });
+
 })
 
 app.get("/perguntar", (req, res) => {
@@ -47,6 +58,24 @@ app.post("/salvarpergunta", (req, res) => {
         descricao: descricao
     }).then(() => {
         res.redirect('/')
+    })
+})
+
+// Rota de cada pergunta 
+app.get("/pergunta/:id", (req, res) => {
+    let id = req.params.id
+
+    // Identificando um dado através de uma condição
+    Pergunta.findOne({
+        where: {
+            id: id
+        }
+    }).then(pergunta => {
+        if (pergunta != undefined) {
+            res.render("pergunta")
+        } else {
+            res.redirect('/')
+        }
     })
 })
 

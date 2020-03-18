@@ -2,10 +2,30 @@
 
     <body>
         <%- include ("partials/navbar.ejs") %>
-            <h1>Guia de Perguntas</h1>
-            <hr>
+            <div class="container">
+                <hr>
+                <h2>Perguntas</h2>
+                <hr>
+                <a href="/perguntar" class="btn btn-success">Perguntar</a>
+                <br>
+                <% perguntas.forEach(pergunta =>{ %>
+                    <br>
 
-            <h3>Lista de Perguntas</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>
+                                <%= pergunta.titulo %>
+
+                            </h4>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success">Responder</button>
+                        </div>
+                    </div>
+
+                    <%}) %>
+
+            </div>
 
     </body>
 
