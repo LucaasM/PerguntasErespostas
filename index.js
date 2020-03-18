@@ -4,6 +4,7 @@ const app = express(); // Instanciando o express
 const bodyParser = require('body-parser')
 
 const connection = require("./database/database") // Importando banco de dados criado
+const Pergunta = require('./database/Pergunta') // Importando a tabela e criando no banco
 
 // Autentificando o BD
 connection
@@ -36,10 +37,17 @@ app.get("/perguntar", (req, res) => {
 
 // Criando a rota para acessar dados do front
 app.post("/salvarpergunta", (req, res) => {
-    // Recebendo os dados do front-end
+    // Recebendo os dados do front-end/formulario
     let titulo = req.body.titulo
     let descricao = req.body.descricao
-    res.send("Formulario recebido")
+
+    // Adicionando os dados coletados no banco de dados
+    Pergunta.create({
+        titulo: titulo,
+        descricao: descricao
+    }).then(() => {
+        res.redirect('/')
+    })
 })
 
 // Iniciando servidor na porta 8080
