@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 
 const connection = require("./database/database") // Importando banco de dados criado
 const Pergunta = require('./database/Pergunta') // Importando a tabela e criando no banco
+const Resposta = require('./database/Resposta') // Importando a tabela e criando no banco
 
 // Autentificando o BD
 connection
@@ -70,16 +71,43 @@ app.get("/pergunta/:id", (req, res) => {
         where: {
             id: id
         }
-    }).then(pergunta => {
+    }).then(pergunta => { // Recenbendo um dado e verificando se está ok
         if (pergunta != undefined) {
-            res.render("pergunta")
+            Resposta.findAll({
+                where: {
+                    perguntaId: id,
+
+                },
+                order: [
+                    ["id", "DESC"]
+                ]
+
+            }).then(respostas => {
+                res.render("pergunta", {
+                    pergunta: pergunta,
+                    respostas: respostas
+                })
+            })
+
         } else {
             res.redirect('/')
         }
     })
 })
 
-// Iniciando servidor na porta 8080
+// Acessando os dados das resposta no front
+app.post('/responder', (req, res) => {
+        let corpo = req.body.corpo
+        let perguntaId = req.body.pergunta
+
+        Resposta.create({
+            corpo: corpo,
+            perguntaId: perguntaId
+        }).then(() => {
+            res.redirect('/pergunta/' + perguntaId)
+        })
+    })
+    // Iniciando servidor na porta 8080
 app.listen(8080, () => {
     console.log("Servidor rodando")
 })
